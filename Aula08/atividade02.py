@@ -20,6 +20,9 @@ df_Ano_Estelionatos = df_ocorrencias[['mes_ano', 'estelionato']]
 
 df_Ano_Estelionatos = df_Ano_Estelionatos.groupby('mes_ano', as_index=False)['estelionato'].sum()
 
+df_munic_estelionato = df_ocorrencias[['munic', 'estelionato']]
+df_munic_estelionato = df_munic_estelionato.groupby('munic', as_index=False)['estelionato'].sum()
+
 
 try: 
     print('OBTENDO AS INFORMÇÕES SOBRE EM QUAIS MESES E ANOS APRENSETARAM OS MAIORES E MENORES QUANTIDADES DE ESTELIONATOS')
@@ -62,7 +65,16 @@ try:
     print(df_estelionatos_maiores.head(10))
 
 
-
+    df_munic_estelionatos_menores = df_munic_estelionato[df_munic_estelionato['estelionato'] < q1 ]
+    print('\nMunicipios com menores valores')
+    print(40*'=')
+    print(df_munic_estelionatos_menores.sort_values(by = 'estelionato', ascending=True).head(10))
+    
+    
+    df_munic_estelionato_maiores = df_munic_estelionato[df_munic_estelionato['estelionato'] > q3 ]
+    print('\nMunicipios com menores valores')
+    print(40*'=')
+    print(df_munic_estelionato_maiores.head(10))
 
 except Exception as e:
     print(f'Erro ao calcular as informações {e}')
